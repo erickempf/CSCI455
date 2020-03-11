@@ -110,20 +110,17 @@ class myGUI():
             self.count = 0
         if event.x >= self.trashx and event.x < self.trashx+self.size and event.y>= self.trashy and event.y<self.trashy+self.size:
             print("TRASH")
-            print(self.count)
-            if self.count == 7:
-                self.count = 7
-                self.order[self.count][2] = "grey"
-                self.console.create_rectangle(self.order[7][0],125,self.order[7][1],250,outline="Black",fill=self.order[7][2])
-                self.count = self.count - 1
-            elif self.count == 0:
-                self.count = 0
-                self.order[self.count][2] = "grey"
-                self.console.create_rectangle(self.order[self.count][0],125,self.order[self.count][1],250,outline="Black",fill=self.order[0][2])
-            else:
-                self.order[self.count][2] = "grey"
-                self.console.create_rectangle(self.order[self.count][0],125,self.order[self.count][1],250,outline="Black",fill=self.order[self.count][2])
-                self.count = self.count - 1
+            self.console.create_rectangle(self.order[0][0],125,self.order[0][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[1][0],125,self.order[1][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[2][0],125,self.order[2][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[3][0],125,self.order[3][1],250,outline="Black",fill="grey")
+            
+            self.console.create_rectangle(self.order[4][0],125,self.order[4][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[5][0],125,self.order[5][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[6][0],125,self.order[6][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(self.order[7][0],125,self.order[7][1],250,outline="Black",fill="grey")
+            self.commandList = []
+            self.count = 0;
         if event.x >= self.playx and event.x < self.playx+self.size and event.y >= self.playy and event.y < self.playy+self.size:
             self.execute(self.commandList)
             print("stuff2")
