@@ -28,7 +28,9 @@ class myGUI():
         self.size = 50
         
         self.order = [[100,150,""],[175,225,""],[250,300,""],[325,375,""],[400,450,""],[475,525,""],[550,600,""],[625,675,""]]
-
+        self.buttons = []
+        self.num = []
+        
         self.movex = 5
         self.movey = 5
 
@@ -68,6 +70,11 @@ class myGUI():
         print(event.x)
         print(event.y)
         if event.x >= self.movex and event.x < self.movex+self.size and event.y>= self.movey and event.y<self.movey+self.size:
+            self.console.create_rectangle(self.order[self.count][0],75,self.order[self.count][1],100,outline="black",fill="green")
+            self.console.create_rectangle(self.order[self.count][0],300,self.order[self.count][1],325,outline="black",fill="red")
+            self.num.append(3)
+            self.console.create_text((self.order[self.count][0]+self.order[self.count][0]+self.size)/2 - 4,275, text = str(self.num[self.count]) + " Feet")
+            self.buttons.append(0)
             print("MOVE")
             self.commandList.append(0)
             print(self.commandList)
@@ -76,6 +83,11 @@ class myGUI():
             self.count = self.count + 1
             self.console.pack(side=tk.LEFT)
         if event.x >= self.turnx and event.x < self.turnx+self.size and event.y>= self.turny and event.y<self.turny+self.size:
+            self.num.append(45)
+            self.console.create_rectangle(self.order[self.count][0],75,self.order[self.count][1],100,outline="black",fill="green")
+            self.console.create_rectangle(self.order[self.count][0],300,self.order[self.count][1],325,outline="black",fill="red")
+            self.console.create_text((self.order[self.count][0]+self.order[self.count][0]+self.size)/2 - 4,275, text = str(self.num[self.count]) + " Degrees")
+            self.buttons.append(1)
             print("TURN")
             self.commandList.append(1)
             self.order[self.count][2] = "blue"
@@ -83,6 +95,11 @@ class myGUI():
             self.count = self.count + 1
             self.console.pack(side=tk.LEFT)
         if event.x >= self.headtiltx and event.x < self.headtiltx+self.size and event.y>= self.headtilty and event.y<self.headtilty+self.size:
+            self.num.append(20)
+            self.console.create_rectangle(self.order[self.count][0],75,self.order[self.count][1],100,outline="black",fill="green")
+            self.console.create_rectangle(self.order[self.count][0],300,self.order[self.count][1],325,outline="black",fill="red")
+            self.console.create_text((self.order[self.count][0]+self.order[self.count][0]+self.size)/2 - 4,275, text = str(self.num[self.count]) + " Degrees")
+            self.buttons.append(2)
             print("TILT HEAD")
             self.commandList.append(2)
             self.order[self.count][2] = "yellow"
@@ -90,6 +107,11 @@ class myGUI():
             self.count = self.count + 1
             self.console.pack(side=tk.LEFT)
         if event.x >= self.headturnx and event.x < self.headturnx+self.size and event.y>= self.headturny and event.y<self.headturny+self.size:
+            self.num.append(20)
+            self.console.create_rectangle(self.order[self.count][0],75,self.order[self.count][1],100,outline="black",fill="green")
+            self.console.create_rectangle(self.order[self.count][0],300,self.order[self.count][1],325,outline="black",fill="red")
+            self.console.create_text((self.order[self.count][0]+self.order[self.count][0]+self.size)/2 - 4,275, text = str(self.num[self.count]) + " Degrees")
+            self.buttons.append(3)
             print("TURN HEAD")
             self.commandList.append(3)
             self.order[self.count][2] = "green"
@@ -97,6 +119,11 @@ class myGUI():
             self.count = self.count + 1
             self.console.pack(side=tk.LEFT)
         if event.x >= self.bodyx and event.x < self.bodyx+self.size and event.y>= self.bodyy and event.y<self.bodyy+self.size:
+            self.num.append(20)
+            self.console.create_rectangle(self.order[self.count][0],75,self.order[self.count][1],100,outline="black",fill="green")
+            self.console.create_rectangle(self.order[self.count][0],300,self.order[self.count][1],325,outline="black",fill="red")
+            self.console.create_text((self.order[self.count][0]+self.order[self.count][0]+self.size)/2 - 4,275, text = str(self.num[self.count]) + " Degrees")
+            self.buttons.append(4)
             print("BODY")
             self.commandList.append(4)
             self.execute(self.commandList)
@@ -110,17 +137,18 @@ class myGUI():
             self.count = 0
         if event.x >= self.trashx and event.x < self.trashx+self.size and event.y>= self.trashy and event.y<self.trashy+self.size:
             print("TRASH")
-            self.console.create_rectangle(self.order[0][0],125,self.order[0][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[1][0],125,self.order[1][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[2][0],125,self.order[2][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[3][0],125,self.order[3][1],250,outline="Black",fill="grey")
-            
-            self.console.create_rectangle(self.order[4][0],125,self.order[4][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[5][0],125,self.order[5][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[6][0],125,self.order[6][1],250,outline="Black",fill="grey")
-            self.console.create_rectangle(self.order[7][0],125,self.order[7][1],250,outline="Black",fill="grey")
+            self.console.create_rectangle(0,0,810-self.size,410,outline="grey",fill="grey")
+            for i in range(0,8):
+                self.console.create_rectangle(self.order[i][0],125,self.order[i][1],250,outline="Black",fill="grey")
+                self.console.create_rectangle(self.order[i][0],75,self.order[i][1],100,outline="grey",fill="grey")
+                self.console.create_rectangle(self.order[i][0],300,self.order[i][1],325,outline="grey",fill="grey")
+
+            self.buttons = []
+            self.num = []
             self.commandList = []
             self.count = 0;
+            self.console.pack(side=tk.LEFT)
+            
         if event.x >= self.playx and event.x < self.playx+self.size and event.y >= self.playy and event.y < self.playy+self.size:
             self.execute(self.commandList)
             print("stuff2")
@@ -202,3 +230,4 @@ gui = myGUI(win)
 gui.controls()
 gui.controls.bind('<ButtonPress-1>',gui.action)
 gui.console()
+gui.console.bind('<ButtonPress-1>',gui.action)
