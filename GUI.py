@@ -172,6 +172,69 @@ class myGUI():
 
         self.console.pack(side=tk.LEFT)
         return
+		
+	def incrementBoxes(self,event):
+        print("Clicked")
+        fill = "failed"
+        if event.x >= self.order[0][0] and event.x <= self.order[0][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 0
+                fill = 10
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 0
+                fill = 1
+        if event.x >= self.order[1][0] and event.x <= self.order[1][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 1
+                fill = 1
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 1
+                fill = -1
+        if event.x >= self.order[2][0] and event.x <= self.order[2][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 2
+                fill = 2
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 2
+                fill = -2
+        if event.x >= self.order[3][0] and event.x <= self.order[3][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 3
+                fill = 3
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 3
+                fill = -3
+        if event.x >= self.order[4][0] and event.x <= self.order[4][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 4
+                fill = 4
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 4
+                print("decrement 4")
+        if event.x >= self.order[5][0] and event.x <= self.order[5][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 1
+                fill = 5
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 1
+                fill = -5
+        if event.x >= self.order[6][0] and event.x <= self.order[6][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 2
+                fill = 6
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 2
+                fill = -6
+        if event.x >= self.order[7][0] and event.x <= self.order[7][1]:
+            if event.y >=75 and event.y <= 100:
+                #Increment num 3
+                fill = 7
+            if event.y >=300 and event.y <= 325:
+                #Decrement num 3
+                fill = -7
+        print(fill)
+        pass
+		
     def motion(self, event):
       print("Mouse position: (%s %s)" % (event.x, event.y))
       return
@@ -231,3 +294,5 @@ gui.controls()
 gui.controls.bind('<ButtonPress-1>',gui.action)
 gui.console()
 gui.console.bind('<ButtonPress-1>',gui.action)
+
+gui.console.bind('<ButtonPress-1>',gui.incrementBoxes)
