@@ -3,12 +3,11 @@
 class dialog():
     def __init__(self,text):
         
-        self.text = text
+        self.text = text   # File name
         self.level = 0
-        self.run = True
 
         self.top = []
-        self.definitionsList = []
+        self.definitionsList = [] #Definitions header location
 
     def getLevel(self):
         return self.level
@@ -17,22 +16,22 @@ class dialog():
         self.level = newLevel
         pass
 
-    def definitions(self, name, choices):
+    def definitions(self, name, choices): # Handles DEfintions
         #DEFINE system here
         print(name)
         pass
 
-    def proposition(self, command, robot):
+    def proposition(self, command, robot): # Handles Propositions
         #Proposition work here
         print("Proposition")
         pass
 
-    def options(self, command, human, robot):
+    def options(self, command, human, robot): # Handles all other dialog
         #Data structure here
         print(human)
         pass
 
-    def textIn(self):
+    def textIn(self):           #Reads in the file text
         file = open(self.text,"r")
         for x in file:
             self.line = x
@@ -40,7 +39,7 @@ class dialog():
         file.close()        
         pass
 
-    def dialog(self, line):
+    def dialog(self, line): #Splits into proper dialog parts
         line = line.strip() #Removes leading and trailing spaces
         line = line.lower() #takes it to all lowercase
         if line[0] == "#": # Comment
