@@ -21,7 +21,13 @@ class dialog():
         
         pass
 
-    def textInt(self):
+    def proposition(self, name, choices):
+        pass
+
+    def options(self, command, human, robot):
+        pass
+
+    def textIn(self):
         file = open(self.text,"r")
         for x in file:
             self.line = x
@@ -42,11 +48,10 @@ class dialog():
             self.proposition(robot)
         else:
             (command,human,robot) = line.split(":")
-            command.strip()
-            human.strip()
+            command.strip()     #Rid of any spaces
+            human.strip()   
             robot.strip()
-            
-        
+            self.options(command, human, robot)
         pass
 
 
@@ -55,7 +60,7 @@ class dialog():
 
 dialogEng = dialog("dialog.txt")
 
-dialogEng.textInt()
+dialogEng.textIn()
 
 
 
