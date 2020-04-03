@@ -5,9 +5,10 @@ class dialog():
         
         self.text = text
         self.level = 0
+        self.run = True
 
         self.top = []
-        self.definitions = []
+        self.definitionsList = []
 
     def getLevel(self):
         return self.level
@@ -16,15 +17,19 @@ class dialog():
         self.level = newLevel
         pass
 
-    def definitions(self):
+    def definitions(self, name, choices):
         #DEFINE system here
-        
+        print("Definitions" + name)
         pass
 
-    def proposition(self, name, choices):
+    def proposition(self, command, robot):
+        #Proposition work here
+        print("Proposition")
         pass
 
     def options(self, command, human, robot):
+        #Data structure here
+        print(human)
         pass
 
     def textIn(self):
@@ -38,20 +43,21 @@ class dialog():
     def dialog(self, line):
         line = line.strip() #Removes leading and trailing spaces
         line = line.lower() #takes it to all lowercase
-        if line[0] == "#":
+        if line[0] == "#": # Comment
             print("Comment ignored")
-        elif line[0] == "~":
+            
+        elif line[0] == "~": #Definition
             (name, choices) = line.split(":")
-            self.defintions(name,choices)
-        elif line[0] == "&":
+            self.definitions(name, choices)
+            
+        elif line[0] == "&": #Proposition
             (command, robot) = line.split(":")
-            self.proposition(robot)
+            self.proposition(command.strip(), robot.strip())
+            
         else:
             (command,human,robot) = line.split(":")
-            command.strip()     #Rid of any spaces
-            human.strip()   
-            robot.strip()
-            self.options(command, human, robot)
+            self.options(command.strip(), human.strip(" ("), robot.strip())
+            
         pass
 
 
@@ -61,6 +67,14 @@ class dialog():
 dialogEng = dialog("dialog.txt")
 
 dialogEng.textIn()
+##run = True
+##while(run):
+##    human = input()
+##    human = human.lower()
+##    if human == "exit":
+##        run = False
+##    print(human)
+    
 
 
 
