@@ -19,7 +19,7 @@ class dialog():
 
     def definitions(self, name, choices):
         #DEFINE system here
-        print("Definitions" + name)
+        print(name)
         pass
 
     def proposition(self, command, robot):
@@ -48,15 +48,18 @@ class dialog():
             
         elif line[0] == "~": #Definition
             (name, choices) = line.split(":")
-            self.definitions(name, choices)
+            self.definitions(name.lstrip("~"), choices)
             
         elif line[0] == "&": #Proposition
             (command, robot) = line.split(":")
             self.proposition(command.strip(), robot.strip())
             
-        else:
+        elif line[0].lower() == "u":
             (command,human,robot) = line.split(":")
-            self.options(command.strip(), human.strip(" ("), robot.strip())
+            self.options(command.strip(), human.strip(" ( )"), robot.strip())
+
+        else:
+            print("Error")
             
         pass
 
