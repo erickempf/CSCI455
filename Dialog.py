@@ -8,6 +8,7 @@ class dialog():
 
         self.top = []
         self.definitionsList = [] #Definitions header location
+        self.dialogList = [] #Saves all possible diaglog options
 
     def getLevel(self):
         return self.level
@@ -18,7 +19,7 @@ class dialog():
 
     def definitions(self, name, choices): # Handles DEfintions
         #DEFINE system here
-        print(name)
+        #print(name)
         pass
 
     def proposition(self, command, robot): # Handles Propositions
@@ -27,9 +28,8 @@ class dialog():
         pass
 
     def options(self, command, human, robot): # Handles all other dialog
-        #Data structure here
-        print(human)
-        pass
+        entry = [command, human, robot]
+        self.dialogList.append(entry)
 
     def textIn(self):           #Reads in the file text
         file = open(self.text,"r")
@@ -55,8 +55,8 @@ class dialog():
             
         elif line[0].lower() == "u":
             (command,human,robot) = line.split(":")
-            self.options(command.strip(), human.strip(" ( )"), robot.strip())
-
+            self.options(command.strip(), human.strip("( )"), robot.strip())
+            
         else:
             print("Error")
             
@@ -69,13 +69,22 @@ class dialog():
 dialogEng = dialog("dialog.txt")
 
 dialogEng.textIn()
-##run = True
-##while(run):
-##    human = input()
-##    human = human.lower()
-##    if human == "exit":
-##        run = False
-##    print(human)
+for item in dialogEng.dialogList:
+    for small in item:
+        print(small)
+    print("-----")
+run = True
+while(run):
+    human = input()
+    human = human.lower()
+    if human == "exit":
+        run = False
+    for entry in dialogEng.dialogList:
+        for item in entry:
+            if human == item:
+                print(entry[2])
+                break
+print("program finished")
     
 
 

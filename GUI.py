@@ -1,6 +1,6 @@
 import tkinter as tk
 import time
-from Maestro import Controller
+#from Maestro import Controller
 
 
 ##-------------BEGIN GUI CLASS--------------------------------------
@@ -15,7 +15,7 @@ class myGUI():
     def __init__(self,win):
 
         self.commandList = []
-        self.tango = Controller()
+  #      self.tango = Controller()
         self.body = 6000
         self.headTurn = 6000
         self. headTilt = 6000
@@ -252,47 +252,43 @@ class myGUI():
     def execute(self, commandList):
         print("Execute")
         for item in commandList:
-            self.body = 6000
-            self.headTurn = 6000
-            self.headTilt = 6000
-            self.motors = 6000
-            self.turn = 6000
             
             if(item == 0):
                 self.motors = 5000
-                self.tango.setTarget(MOTORS, self.motors)
+ #               self.tango.setTarget(MOTORS, self.motors)
                 print("stuff")
                 time.sleep(self.num[item])
                 self.motors = 6000
-                self.tango.setTarget(MOTORS, self.motors)
+  #              self.tango.setTarget(MOTORS, self.motors)
             elif(item == 1):
                 self.turn = 5000
-                self.tango.setTarget(TURNING, self.turn)
+   #             self.tango.setTarget(TURNING, self.turn)
                 print("stuff")
                 time.sleep(self.num[item])
+                print(self.num[item])
                 self.turn = 6000
-                self.tango.setTarget(TURNING, self.turn)
+    #            self.tango.setTarget(TURNING, self.turn)
             elif(item == 2):
                 self.headTilt = 5000
-                self.tango.setTarget(HEAD_TILT, self.headTilt)
+     #           self.tango.setTarget(HEAD_TILT, self.headTilt)
                 print("stuff")
                 time.sleep(self.num[item])
                 self.headTilt = 6000
-                self.tango.setTarget(HEAD_TILT, self.headTilt)
+      #          self.tango.setTarget(HEAD_TILT, self.headTilt)
             elif(item == 3):
                 self.headTurn = 5000
-                self.tango.setTarget(HEAD_TURN, self.headTurn)
+       #         self.tango.setTarget(HEAD_TURN, self.headTurn)
                 print("stuff")
                 time.sleep(self.num[item])
                 self.headTurn = 6000
-                self.tango.setTarget(HEAD_TURN, self.headTurn)
+        #        self.tango.setTarget(HEAD_TURN, self.headTurn)
             elif(item == 4):
                 self.body = 5000
-                self.tango.setTarget(BODY, self.body)
+         #       self.tango.setTarget(BODY, self.body)
                 print("stuff")
                 time.sleep(self.num[item])
                 self.body = 6000
-                self.tango.setTarget(BODY, self.body)
+          #      self.tango.setTarget(BODY, self.body)
             time.sleep(1)
 
 ##---------------END GUI CLASS--------------------------------------
