@@ -1,4 +1,12 @@
+class entry():
 
+    def __init__(self, command, human, robot):
+
+        self.command = command
+        self.human = human
+        self.robot = robot
+        self.children = []
+        self.parent = None
 
 class dialog():
     def __init__(self,text):
@@ -9,6 +17,7 @@ class dialog():
         self.top = []
         self.definitionsList = [] #Definitions header location
         self.dialogList = [] #Saves all possible diaglog options
+        self.recentEntry = entry(0,"error","error")
 
     def getLevel(self):
         return self.level
@@ -27,9 +36,28 @@ class dialog():
         print("Proposition")
         pass
 
-    def options(self, command, human, robot): # Handles all other dialog
-        entry = [command, human, robot]
-        self.dialogList.append(entry)
+    def options(self, command, human, robot): # Handles all other dialog            <------- Working on this
+        entry1 = entry(command, human, robot)
+        if entry1.command == 0:
+            self.dialogList.append(entry1)
+            print("if1")
+        elif command == self.recentEntry.command+1:
+            self.recentEntry.children.append(entry1)
+            entry1.parent = self.recentEntry
+            print("if2")
+        elif command == self.recentEntry.command:
+            parent = self.recentEntry.parent
+            parent.children.append(entry1)
+            entry1.parent = parent
+            print("if3")
+        else:
+            while(self.recentEntry.command >= command):
+                self.recentEntry = self.recentEntry.parent
+            self.recentEntry.children.append(entry1)
+            entry1.parent = self.recentEntry
+            print("if4")
+        recentEntry = entry1
+        print(entry1.command)
 
     def textIn(self):           #Reads in the file text
         file = open(self.text,"r")
@@ -55,7 +83,11 @@ class dialog():
             
         elif line[0].lower() == "u":
             (command,human,robot) = line.split(":")
-            self.options(command.strip(), human.strip("( )"), robot.strip())
+            command = command.strip("u")
+            if command == "":
+                command = "0"
+            command = int(command)
+            self.options(command, human.strip("( )"), robot.strip())
             
         else:
             print("Error")
@@ -69,10 +101,9 @@ class dialog():
 dialogEng = dialog("dialog.txt")
 
 dialogEng.textIn()
-for item in dialogEng.dialogList:
-    for small in item:
-        print(small)
-    print("-----")
+#for entry in dialogEng.dialogList:          #Printing out everything to test
+#    print(entry.command+"|"+entry.human+"|"+entry.robot)
+    
 run = True
 while(run):
     human = input()
@@ -80,10 +111,8 @@ while(run):
     if human == "exit":
         run = False
     for entry in dialogEng.dialogList:
-        for item in entry:
-            if human == item:
-                print(entry[2])
-                break
+        if entry.human == human:
+            print(entry.robot)
 print("program finished")
     
 
