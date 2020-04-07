@@ -1,3 +1,5 @@
+import random as rd
+
 class entry():
 
     def __init__(self, command, human, robot):
@@ -7,6 +9,13 @@ class entry():
         self.robot = robot
         self.children = []
         self.parent = None
+
+class definition():
+
+    def __init__(self, name, choices):
+
+        self.name = name
+        self.choices = choices.split()
 
 
 class dialog():
@@ -28,10 +37,11 @@ class dialog():
         self.level = newLevel
         pass
 
-    def definitions(self, name, choices): # Handles DEfintions
-        #DEFINE system here
-        #print(name)
-        pass
+    def definitions(self, name, choices): # Handles Defintions
+        choices.strip(" []")
+        choiceList = choices.split()
+        self.validinput = self.validinput + choiceList
+        def1 = definition(name, choices)
 
     def proposition(self, command, robot): # Handles Propositions
         #Proposition work here
@@ -41,6 +51,13 @@ class dialog():
     def options(self, command, human, robot): # Handles all other dialog
         entry1 = entry(command, human, robot)
         if entry1.command == 0:
+            if human[0] == "~":
+                for definition in self.definitionsList:
+                    if definition.name == human:
+                        for choice in definition.choices:
+                            entry2 = entry(command, choice, robot)
+                            self.dialogList.append(entry2)
+                            self.validinput.append(choice)
             self.dialogList.append(entry1)
             self.validinput.append(human)
             #print("if1")
@@ -78,7 +95,9 @@ class dialog():
             
         elif line[0] == "~": #Definition
             (name, choices) = line.split(":")
-            self.definitions(name.lstrip("~"), choices)
+            self.definitions(name.lstrip("~"), choices.strip(" []"))
+            def1 = definition(name, choices.strip(" []"))
+            self.definitionsList.append(def1)
             
         elif line[0] == "&": #Proposition
             (command, robot) = line.split(":")
@@ -104,6 +123,8 @@ class dialog():
 dialogEng = dialog("dialog.txt")
 
 dialogEng.textIn()
+for item in dialogEng.validinput:
+     print(item)
 run = True
 while(run):
     human = input()
