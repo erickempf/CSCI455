@@ -1,4 +1,8 @@
+#Project 6
+#Eric Kempf, Jalen Dunlap
+
 import random as rd
+import shlex
 
 class entry():
 
@@ -15,8 +19,7 @@ class definition():
     def __init__(self, name, choices):
 
         self.name = name
-        self.choices = choices.split()
-
+        self.choices = shlex.split(choices)
 
 class dialog():
     def __init__(self,text):
@@ -53,6 +56,7 @@ class dialog():
         if entry1.command == 0:
             if human[0] == "~":
                 for definition in self.definitionsList:
+                    
                     if definition.name == human:
                         for choice in definition.choices:
                             entry2 = entry(command, choice, robot)
@@ -77,7 +81,6 @@ class dialog():
             entry1.parent = self.recentEntry
             #print("if4")
         self.recentEntry = entry1
-        #print(entry1.command)
 
     def textIn(self):           #Reads in the file text
         file = open(self.text,"r")
@@ -91,7 +94,8 @@ class dialog():
         line = line.strip() #Removes leading and trailing spaces
         line = line.lower() #takes it to all lowercase
         if line[0] == "#": # Comment
-            print("Comment ignored")
+            pass
+            #print("Comment ignored")
             
         elif line[0] == "~": #Definition
             (name, choices) = line.split(":")
@@ -109,7 +113,13 @@ class dialog():
             if command == "":
                 command = "0"
             command = int(command)
-            self.options(command, human.strip("( )"), robot.strip())
+            if "[" in human:
+                human = human.strip("() []")
+                wordList = shlex.split(human)
+                for word in wordList:
+                    self.options(command, word, robot.strip())
+            else:
+                self.options(command, human.strip("( )"), robot.strip())
             
         else:
             print("Error")
@@ -121,12 +131,10 @@ class dialog():
 ##-------MAIN------
 
 dialogEng = dialog("dialog.txt")
-
 dialogEng.textIn()
-for item in dialogEng.validinput:
-     print(item)
+
 run = True
-while(run):
+while(run):         #Main execution loop
     human = input()
     human = human.lower()
     if human == "exit":
@@ -134,7 +142,13 @@ while(run):
     elif human in dialogEng.validinput:
         for entry in dialogEng.dialogList:
             if entry.human == human:
-                print(entry.robot)
+                if "[" in entry.robot:
+                    answers = entry.robot.strip("[] ")
+                    answerList1 = shlex.split(answers)
+                    randomInt = rd.randint(0, len(answerList1))
+                    print(answerList1[randomInt-1])
+                else:
+                    print(entry.robot)
                 if entry.children != []:
                     currentEntry = entry
                     dialogEng.level += 1
@@ -146,7 +160,13 @@ while(run):
                         if human in validinputs:
                             for child in currentEntry.children:
                                 if child.human == human:
-                                    print(child.robot)
+                                    if "[" in child.robot:
+                                        answers = child.robot.strip("[] ")
+                                        answerList = shlex.split(answers)
+                                        randomInt = rd.randint(0, len(answerList))
+                                        print(answerList[randomInt-1])
+                                    else:
+                                        print(child.robot)
                                     currentEntry = child
                                     if currentEntry.children != []:
                                         dialogEng.level +=1
